@@ -1,0 +1,92 @@
+<div class="dashboard-wrapper">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+      <p>Welcome back! Here is your portal overview.</p>
+    </div>
+    <button class="btn-refresh" (click)="loadStats()">
+      <i class="fas fa-sync-alt"></i> Refresh
+    </button>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading" *ngIf="isLoading">
+    <i class="fas fa-spinner fa-spin"></i> Loading...
+  </div>
+
+  <!-- ERROR -->
+  <div class="alert-error" *ngIf="errorMessage">
+    <i class="fas fa-times-circle"></i> {{ errorMessage }}
+  </div>
+
+  <!-- STATS CARDS -->
+  <div class="stats-grid" *ngIf="!isLoading">
+
+    <div class="stat-card blue">
+      <div class="stat-icon">
+        <i class="fas fa-briefcase"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats.totalJobs }}</span>
+        <span class="stat-label">Total Jobs</span>
+      </div>
+    </div>
+
+    <div class="stat-card green">
+      <div class="stat-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats.activeJobs }}</span>
+        <span class="stat-label">Active Jobs</span>
+      </div>
+    </div>
+
+    <div class="stat-card purple">
+      <div class="stat-icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats.totalUsers }}</span>
+        <span class="stat-label">Total Users</span>
+      </div>
+    </div>
+
+    <div class="stat-card orange">
+      <div class="stat-icon">
+        <i class="fas fa-file-alt"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats.totalApplications }}</span>
+        <span class="stat-label">Total Applications</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QUICK LINKS -->
+  <div class="quick-links" *ngIf="!isLoading">
+    <h3>Quick Actions</h3>
+    <div class="links-grid">
+
+      <a routerLink="/admin/jobs" class="quick-card">
+        <i class="fas fa-plus-circle"></i>
+        <span>Manage Jobs</span>
+      </a>
+
+      <a routerLink="/admin/users" class="quick-card">
+        <i class="fas fa-users"></i>
+        <span>View Users</span>
+      </a>
+
+      <a routerLink="/admin/applications" class="quick-card">
+        <i class="fas fa-file-alt"></i>
+        <span>View Applications</span>
+      </a>
+
+    </div>
+  </div>
+
+</div>
