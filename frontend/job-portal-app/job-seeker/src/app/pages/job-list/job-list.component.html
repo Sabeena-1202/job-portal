@@ -1,0 +1,28 @@
+<div style="max-width:800px; margin:30px auto; padding:20px;">
+
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h2>Available Jobs</h2>
+    <div>
+      <a routerLink="/dashboard" style="margin-right:10px;">My Applications</a>
+      <button (click)="logout()" style="padding:8px 16px; background:red; color:white; border:none; cursor:pointer;">
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" style="color:red;">{{ errorMessage }}</div>
+
+  <div *ngIf="jobs.length === 0" style="text-align:center; margin-top:50px;">
+    No jobs available at the moment.
+  </div>
+
+  <div *ngFor="let job of jobs"
+    style="border:1px solid #ccc; padding:15px; margin-bottom:15px; cursor:pointer;"
+    (click)="viewJob(job.jobId)">
+    <h3 style="margin:0;">{{ job.jobTitle }}</h3>
+    <p style="margin:5px 0;">{{ job.companyName }} — {{ job.location }}</p>
+    <p style="margin:5px 0;">Salary: {{ job.salaryRange }}</p>
+    <small style="color:gray;">Posted: {{ job.postedDate | date }}</small>
+  </div>
+
+</div>
