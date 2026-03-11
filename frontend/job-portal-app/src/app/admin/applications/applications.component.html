@@ -1,0 +1,124 @@
+<div class="applications-wrapper">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <h2><i class="fas fa-file-alt"></i> Applications</h2>
+      <p>Manage all job applications</p>
+    </div>
+    <button class="btn-refresh" (click)="loadApplications()">
+      <i class="fas fa-sync-alt"></i> Refresh
+    </button>
+  </div>
+
+  <!-- ALERTS -->
+  <div class="alert-success" *ngIf="successMessage">
+    <i class="fas fa-check-circle"></i> {{ successMessage }}
+  </div>
+  <div class="alert-error" *ngIf="errorMessage">
+    <i class="fas fa-times-circle"></i> {{ errorMessage }}
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading" *ngIf="isLoading">
+    <i class="fas fa-spinner fa-spin"></i> Loading applications...
+  </div>
+
+  <div *ngIf="!isLoading">
+
+    <!-- TOOLBAR -->
+    <div class="table-toolbar">
+
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input
+          type="text"
+          placeholder="Search by name, job or company..."
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+        />
+      </div>
+
+      <div class="filter-box">
+        <i class="fas fa-filter"></i>
+        <select [(ngModel)]="selectedStatus" (change)="onFilterStatus()">
+          <option value="">All Status</option>
+          <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+        </select>
+      </div>
+
+      <span class="total-count">
+        <i class="fas fa-file-alt"></i>
+        {{ filteredApplications.length }} applications
+      </span>
+
+    </div>
+
+    <!-- APPLICATIONS TABLE -->
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Applicant</th>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>Applied On</th>
+            <th>Status</th>
+            <th>Update Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of filteredApplications; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <div class="applicant-info">
+                <div class="applicant-avatar">
+                  <i class="fas fa-user"></i>
+                </div>
+                <div>
+                  <span class="applicant-name">{{ app.applicantName }}</span>
+                  <span class="applicant-email">{{ app.applicantEmail }}</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="job-info">
+                <i class="fas fa-briefcase"></i>
+                {{ app.jobTitle }}
+              </div>
+            </td>
+            <td>
+              <i class="fas fa-building"></i>
+              {{ app.companyName }}
+            </td>
+            <td>
+              <i class="fas fa-calendar-alt"></i>
+              {{ app.applicationDate | date: 'dd MMM yyyy' }}
+            </td>
+            <td>
+              <span class="badge" [ngClass]="getStatusClass(app.status)">
+                {{ app.status }}
+              </span>
+            </td>
+            <td>
+              <select
+                class="status-select"
+                [value]="app.status"
+                (change)="updateStatus(app.applicationId, $any($event.target).value)"
+              >
+                <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+              </select>
+            </td>
+          </tr>
+          <tr *ngIf="filteredApplications.length === 0">
+            <td colspan="7" class="no-data">
+              <i class="fas fa-inbox"></i> No applications found
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
