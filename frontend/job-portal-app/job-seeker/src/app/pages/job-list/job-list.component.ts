@@ -13,8 +13,8 @@ export class JobListComponent implements OnInit {
   errorMessage = '';
 
   constructor(
+    public authService: AuthService,
     private jobService: JobService,
-    private authService: AuthService,
     private router: Router
   ) {}
 
