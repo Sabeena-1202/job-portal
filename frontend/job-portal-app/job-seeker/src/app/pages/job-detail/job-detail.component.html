@@ -1,1 +1,31 @@
-<p>job-detail works!</p>
+<div style="max-width:600px; margin:30px auto; padding:20px;">
+
+  <button (click)="goBack()" style="margin-bottom:20px; padding:8px 16px; cursor:pointer;">
+    ← Back to Jobs
+  </button>
+
+  <div *ngIf="errorMessage" style="color:red;">{{ errorMessage }}</div>
+  <div *ngIf="successMessage" style="color:green;">{{ successMessage }}</div>
+
+  <div *ngIf="job">
+    <h2>{{ job.jobTitle }}</h2>
+    <p><strong>Company:</strong> {{ job.companyName }}</p>
+    <p><strong>Location:</strong> {{ job.location }}</p>
+    <p><strong>Salary:</strong> {{ job.salaryRange }}</p>
+    <p><strong>Posted:</strong> {{ job.postedDate | date }}</p>
+    <hr>
+    <p><strong>Description:</strong></p>
+    <p>{{ job.jobDescription }}</p>
+
+    <button *ngIf="!alreadyApplied"
+      (click)="applyForJob()"
+      style="padding:10px 20px; background:blue; color:white; border:none; cursor:pointer;">
+      Apply Now
+    </button>
+
+    <p *ngIf="alreadyApplied" style="color:green;">
+      ✅ You have applied for this job!
+    </p>
+  </div>
+
+</div>
