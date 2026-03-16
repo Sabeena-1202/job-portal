@@ -1,6 +1,7 @@
 .vs/ 
+.angular/
 bin/ 
 obj/ 
 node_modules/ 
 dist/
-.angular/
+*.user
